@@ -68,7 +68,7 @@ export const authOptions: NextAuthOptions = {
     session: ({ session, token }) => {
       const encodedToken = jsonwebtoken.sign(
         token,
-        "verysecretandlonghasurajwtsecret",
+        process.env.NEXTAUTH_SECRET as string,
         {
           algorithm: "HS256",
         }
