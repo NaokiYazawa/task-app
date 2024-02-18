@@ -1,7 +1,6 @@
 "use client";
 
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
-import { Row } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -10,11 +9,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { DialogForm } from "./dialog-form";
+import { DialogForm } from "./DialogForm";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { taskValidator, updateTaskFormValidator } from "@/lib/validations/task";
+import { updateTaskFormValidator } from "@/lib/validations/task";
 import { useState } from "react";
 import {
   AlertDialog,
@@ -29,17 +28,15 @@ import {
 import { revalidatePaths } from "@/lib/revalidate-paths";
 import { deleteTasksByPk, updateTasksByPk } from "@/actions/task";
 import { toast } from "@/components/ui/use-toast";
+import { SelectTasksByUserIdQuery } from "@/graphql/generated/gql.types";
+import { Icons } from "@/components/icons";
 
-interface DataTableRowActionsProps<TData> {
-  row: Row<TData>;
+interface TableRowActionsProps {
+  task: SelectTasksByUserIdQuery["tasks"][number];
 }
 
-export function DataTableRowActions<TData>({
-  row,
-}: DataTableRowActionsProps<TData>) {
+export function TableRowActions({ task }: TableRowActionsProps) {
   const [open, setOpen] = useState(false);
-  const task = taskValidator.parse(row.original);
-  row.original;
   const form = useForm<z.infer<typeof updateTaskFormValidator>>({
     defaultValues: {
       id: task.id,
@@ -51,7 +48,6 @@ export function DataTableRowActions<TData>({
   });
 
   async function onSubmit(data: z.infer<typeof updateTaskFormValidator>) {
-    console.log("asdfvfavbbeab");
     const { data: updatedData, errors } = await updateTasksByPk(data);
     if (updatedData?.update_tasks_by_pk?.id && !errors) {
       toast({
@@ -89,13 +85,19 @@ export function DataTableRowActions<TData>({
             <span className="sr-only">Open menu</span>
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="w-[160px]">
+        <DropdownMenuContent align="end" className="w-[120px]">
           <DropdownMenuItem onClick={() => setOpen(true)}>
-            Edit
+            <div className="flex items-center">
+              <Icons.pencil className="mr-2 h-4 w-4 text-muted-foreground" />
+              <span>Edit</span>
+            </div>
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={() => setOpenAlertDialog(true)}>
-            Delete
+            <div className="flex items-center">
+              <Icons.trash className="mr-2 h-4 w-4 text-muted-foreground" />
+              <span>Delete</span>
+            </div>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
