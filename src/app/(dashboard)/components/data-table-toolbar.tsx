@@ -48,6 +48,9 @@ export function DataTableToolbar<TData>({
         priority: "",
       });
       revalidatePaths(["/"]);
+      form.reset({
+        user_id: session.user.id,
+      });
     }
   }
 
