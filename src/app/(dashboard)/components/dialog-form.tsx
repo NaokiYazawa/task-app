@@ -19,9 +19,12 @@ import { Input } from "@/components/ui/input";
 import { UseFormReturn } from "react-hook-form";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import {
+  ArrowDownIcon,
+  ArrowUpIcon,
   CheckCircledIcon,
   CircleIcon,
   CrossCircledIcon,
+  ArrowRightIcon,
   QuestionMarkCircledIcon,
   StopwatchIcon,
 } from "@radix-ui/react-icons";
@@ -187,7 +190,7 @@ export const DialogForm = ({
                             htmlFor="Low"
                             className="flex items-center rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
                           >
-                            <QuestionMarkCircledIcon className="w-4 h-4" />
+                            <ArrowDownIcon className="w-4 h-4" />
                             <span className="ml-2">Low</span>
                           </FormLabel>
                         </div>
@@ -202,7 +205,7 @@ export const DialogForm = ({
                             htmlFor="Medium"
                             className="flex items-center rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
                           >
-                            <CircleIcon className="w-4 h-4" />
+                            <ArrowRightIcon className="w-4 h-4" />
                             <span className="ml-2">Medium</span>
                           </FormLabel>
                         </div>
@@ -217,7 +220,7 @@ export const DialogForm = ({
                             htmlFor="High"
                             className="flex items-center rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
                           >
-                            <StopwatchIcon className="w-4 h-4" />
+                            <ArrowUpIcon className="w-4 h-4" />
                             <span className="ml-2">High</span>
                           </FormLabel>
                         </div>
