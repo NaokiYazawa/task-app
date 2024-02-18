@@ -46,7 +46,6 @@ export function DataTableToolbar<TData>({
         title: "",
         status: "",
         priority: "",
-        user_id: "",
       });
       revalidatePaths(["/"]);
     }
