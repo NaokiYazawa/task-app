@@ -1,5 +1,3 @@
-export const runtime = "edge";
-
 import { UserNav } from "@/components/user-nav";
 
 interface DashboardLayoutProps {
