@@ -27,7 +27,6 @@ export type Scalars = {
   Int: { input: number; output: number };
   Float: { input: number; output: number };
   timestamptz: { input: any; output: any };
-  uuid: { input: any; output: any };
 };
 
 /** Boolean expression to compare columns of type "Int". All fields are combined with logical 'AND'. */
@@ -124,7 +123,7 @@ export type Mutation_RootDelete_TasksArgs = {
 
 /** mutation root */
 export type Mutation_RootDelete_Tasks_By_PkArgs = {
-  id: Scalars["uuid"]["input"];
+  id: Scalars["Int"]["input"];
 };
 
 /** mutation root */
@@ -163,12 +162,14 @@ export type Mutation_RootInsert_Users_OneArgs = {
 
 /** mutation root */
 export type Mutation_RootUpdate_TasksArgs = {
+  _inc?: InputMaybe<Tasks_Inc_Input>;
   _set?: InputMaybe<Tasks_Set_Input>;
   where: Tasks_Bool_Exp;
 };
 
 /** mutation root */
 export type Mutation_RootUpdate_Tasks_By_PkArgs = {
+  _inc?: InputMaybe<Tasks_Inc_Input>;
   _set?: InputMaybe<Tasks_Set_Input>;
   pk_columns: Tasks_Pk_Columns_Input;
 };
@@ -244,7 +245,7 @@ export type Query_RootTasks_AggregateArgs = {
 };
 
 export type Query_RootTasks_By_PkArgs = {
-  id: Scalars["uuid"]["input"];
+  id: Scalars["Int"]["input"];
 };
 
 export type Query_RootUsersArgs = {
@@ -304,7 +305,7 @@ export type Subscription_RootTasks_AggregateArgs = {
 };
 
 export type Subscription_RootTasks_By_PkArgs = {
-  id: Scalars["uuid"]["input"];
+  id: Scalars["Int"]["input"];
 };
 
 export type Subscription_RootTasks_StreamArgs = {
@@ -343,7 +344,7 @@ export type Subscription_RootUsers_StreamArgs = {
 export type Tasks = {
   __typename?: "tasks";
   created_at: Scalars["timestamptz"]["output"];
-  id: Scalars["uuid"]["output"];
+  id: Scalars["Int"]["output"];
   priority: Scalars["String"]["output"];
   status: Scalars["String"]["output"];
   title: Scalars["String"]["output"];
@@ -374,9 +375,17 @@ export type Tasks_Aggregate_Bool_Exp_Count = {
 /** aggregate fields of "tasks" */
 export type Tasks_Aggregate_Fields = {
   __typename?: "tasks_aggregate_fields";
+  avg?: Maybe<Tasks_Avg_Fields>;
   count: Scalars["Int"]["output"];
   max?: Maybe<Tasks_Max_Fields>;
   min?: Maybe<Tasks_Min_Fields>;
+  stddev?: Maybe<Tasks_Stddev_Fields>;
+  stddev_pop?: Maybe<Tasks_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Tasks_Stddev_Samp_Fields>;
+  sum?: Maybe<Tasks_Sum_Fields>;
+  var_pop?: Maybe<Tasks_Var_Pop_Fields>;
+  var_samp?: Maybe<Tasks_Var_Samp_Fields>;
+  variance?: Maybe<Tasks_Variance_Fields>;
 };
 
 /** aggregate fields of "tasks" */
@@ -387,9 +396,17 @@ export type Tasks_Aggregate_FieldsCountArgs = {
 
 /** order by aggregate values of table "tasks" */
 export type Tasks_Aggregate_Order_By = {
+  avg?: InputMaybe<Tasks_Avg_Order_By>;
   count?: InputMaybe<Order_By>;
   max?: InputMaybe<Tasks_Max_Order_By>;
   min?: InputMaybe<Tasks_Min_Order_By>;
+  stddev?: InputMaybe<Tasks_Stddev_Order_By>;
+  stddev_pop?: InputMaybe<Tasks_Stddev_Pop_Order_By>;
+  stddev_samp?: InputMaybe<Tasks_Stddev_Samp_Order_By>;
+  sum?: InputMaybe<Tasks_Sum_Order_By>;
+  var_pop?: InputMaybe<Tasks_Var_Pop_Order_By>;
+  var_samp?: InputMaybe<Tasks_Var_Samp_Order_By>;
+  variance?: InputMaybe<Tasks_Variance_Order_By>;
 };
 
 /** input type for inserting array relation for remote table "tasks" */
@@ -399,13 +416,24 @@ export type Tasks_Arr_Rel_Insert_Input = {
   on_conflict?: InputMaybe<Tasks_On_Conflict>;
 };
 
+/** aggregate avg on columns */
+export type Tasks_Avg_Fields = {
+  __typename?: "tasks_avg_fields";
+  id?: Maybe<Scalars["Float"]["output"]>;
+};
+
+/** order by avg() on columns of table "tasks" */
+export type Tasks_Avg_Order_By = {
+  id?: InputMaybe<Order_By>;
+};
+
 /** Boolean expression to filter rows from the table "tasks". All fields are combined with a logical 'AND'. */
 export type Tasks_Bool_Exp = {
   _and?: InputMaybe<Array<Tasks_Bool_Exp>>;
   _not?: InputMaybe<Tasks_Bool_Exp>;
   _or?: InputMaybe<Array<Tasks_Bool_Exp>>;
   created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
-  id?: InputMaybe<Uuid_Comparison_Exp>;
+  id?: InputMaybe<Int_Comparison_Exp>;
   priority?: InputMaybe<String_Comparison_Exp>;
   status?: InputMaybe<String_Comparison_Exp>;
   title?: InputMaybe<String_Comparison_Exp>;
@@ -420,10 +448,15 @@ export enum Tasks_Constraint {
   TasksPkey = "tasks_pkey",
 }
 
+/** input type for incrementing numeric columns in table "tasks" */
+export type Tasks_Inc_Input = {
+  id?: InputMaybe<Scalars["Int"]["input"]>;
+};
+
 /** input type for inserting data into table "tasks" */
 export type Tasks_Insert_Input = {
   created_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
-  id?: InputMaybe<Scalars["uuid"]["input"]>;
+  id?: InputMaybe<Scalars["Int"]["input"]>;
   priority?: InputMaybe<Scalars["String"]["input"]>;
   status?: InputMaybe<Scalars["String"]["input"]>;
   title?: InputMaybe<Scalars["String"]["input"]>;
@@ -436,7 +469,7 @@ export type Tasks_Insert_Input = {
 export type Tasks_Max_Fields = {
   __typename?: "tasks_max_fields";
   created_at?: Maybe<Scalars["timestamptz"]["output"]>;
-  id?: Maybe<Scalars["uuid"]["output"]>;
+  id?: Maybe<Scalars["Int"]["output"]>;
   priority?: Maybe<Scalars["String"]["output"]>;
   status?: Maybe<Scalars["String"]["output"]>;
   title?: Maybe<Scalars["String"]["output"]>;
@@ -459,7 +492,7 @@ export type Tasks_Max_Order_By = {
 export type Tasks_Min_Fields = {
   __typename?: "tasks_min_fields";
   created_at?: Maybe<Scalars["timestamptz"]["output"]>;
-  id?: Maybe<Scalars["uuid"]["output"]>;
+  id?: Maybe<Scalars["Int"]["output"]>;
   priority?: Maybe<Scalars["String"]["output"]>;
   status?: Maybe<Scalars["String"]["output"]>;
   title?: Maybe<Scalars["String"]["output"]>;
@@ -508,7 +541,7 @@ export type Tasks_Order_By = {
 
 /** primary key columns input for table: tasks */
 export type Tasks_Pk_Columns_Input = {
-  id: Scalars["uuid"]["input"];
+  id: Scalars["Int"]["input"];
 };
 
 /** select columns of table "tasks" */
@@ -532,12 +565,45 @@ export enum Tasks_Select_Column {
 /** input type for updating data in table "tasks" */
 export type Tasks_Set_Input = {
   created_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
-  id?: InputMaybe<Scalars["uuid"]["input"]>;
+  id?: InputMaybe<Scalars["Int"]["input"]>;
   priority?: InputMaybe<Scalars["String"]["input"]>;
   status?: InputMaybe<Scalars["String"]["input"]>;
   title?: InputMaybe<Scalars["String"]["input"]>;
   updated_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
   user_id?: InputMaybe<Scalars["String"]["input"]>;
+};
+
+/** aggregate stddev on columns */
+export type Tasks_Stddev_Fields = {
+  __typename?: "tasks_stddev_fields";
+  id?: Maybe<Scalars["Float"]["output"]>;
+};
+
+/** order by stddev() on columns of table "tasks" */
+export type Tasks_Stddev_Order_By = {
+  id?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Tasks_Stddev_Pop_Fields = {
+  __typename?: "tasks_stddev_pop_fields";
+  id?: Maybe<Scalars["Float"]["output"]>;
+};
+
+/** order by stddev_pop() on columns of table "tasks" */
+export type Tasks_Stddev_Pop_Order_By = {
+  id?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Tasks_Stddev_Samp_Fields = {
+  __typename?: "tasks_stddev_samp_fields";
+  id?: Maybe<Scalars["Float"]["output"]>;
+};
+
+/** order by stddev_samp() on columns of table "tasks" */
+export type Tasks_Stddev_Samp_Order_By = {
+  id?: InputMaybe<Order_By>;
 };
 
 /** Streaming cursor of the table "tasks" */
@@ -551,12 +617,23 @@ export type Tasks_Stream_Cursor_Input = {
 /** Initial value of the column from where the streaming should start */
 export type Tasks_Stream_Cursor_Value_Input = {
   created_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
-  id?: InputMaybe<Scalars["uuid"]["input"]>;
+  id?: InputMaybe<Scalars["Int"]["input"]>;
   priority?: InputMaybe<Scalars["String"]["input"]>;
   status?: InputMaybe<Scalars["String"]["input"]>;
   title?: InputMaybe<Scalars["String"]["input"]>;
   updated_at?: InputMaybe<Scalars["timestamptz"]["input"]>;
   user_id?: InputMaybe<Scalars["String"]["input"]>;
+};
+
+/** aggregate sum on columns */
+export type Tasks_Sum_Fields = {
+  __typename?: "tasks_sum_fields";
+  id?: Maybe<Scalars["Int"]["output"]>;
+};
+
+/** order by sum() on columns of table "tasks" */
+export type Tasks_Sum_Order_By = {
+  id?: InputMaybe<Order_By>;
 };
 
 /** update columns of table "tasks" */
@@ -578,10 +655,45 @@ export enum Tasks_Update_Column {
 }
 
 export type Tasks_Updates = {
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: InputMaybe<Tasks_Inc_Input>;
   /** sets the columns of the filtered rows to the given values */
   _set?: InputMaybe<Tasks_Set_Input>;
   /** filter the rows which have to be updated */
   where: Tasks_Bool_Exp;
+};
+
+/** aggregate var_pop on columns */
+export type Tasks_Var_Pop_Fields = {
+  __typename?: "tasks_var_pop_fields";
+  id?: Maybe<Scalars["Float"]["output"]>;
+};
+
+/** order by var_pop() on columns of table "tasks" */
+export type Tasks_Var_Pop_Order_By = {
+  id?: InputMaybe<Order_By>;
+};
+
+/** aggregate var_samp on columns */
+export type Tasks_Var_Samp_Fields = {
+  __typename?: "tasks_var_samp_fields";
+  id?: Maybe<Scalars["Float"]["output"]>;
+};
+
+/** order by var_samp() on columns of table "tasks" */
+export type Tasks_Var_Samp_Order_By = {
+  id?: InputMaybe<Order_By>;
+};
+
+/** aggregate variance on columns */
+export type Tasks_Variance_Fields = {
+  __typename?: "tasks_variance_fields";
+  id?: Maybe<Scalars["Float"]["output"]>;
+};
+
+/** order by variance() on columns of table "tasks" */
+export type Tasks_Variance_Order_By = {
+  id?: InputMaybe<Order_By>;
 };
 
 /** Boolean expression to compare columns of type "timestamptz". All fields are combined with logical 'AND'. */
@@ -803,17 +915,52 @@ export type Users_Updates = {
   where: Users_Bool_Exp;
 };
 
-/** Boolean expression to compare columns of type "uuid". All fields are combined with logical 'AND'. */
-export type Uuid_Comparison_Exp = {
-  _eq?: InputMaybe<Scalars["uuid"]["input"]>;
-  _gt?: InputMaybe<Scalars["uuid"]["input"]>;
-  _gte?: InputMaybe<Scalars["uuid"]["input"]>;
-  _in?: InputMaybe<Array<Scalars["uuid"]["input"]>>;
-  _is_null?: InputMaybe<Scalars["Boolean"]["input"]>;
-  _lt?: InputMaybe<Scalars["uuid"]["input"]>;
-  _lte?: InputMaybe<Scalars["uuid"]["input"]>;
-  _neq?: InputMaybe<Scalars["uuid"]["input"]>;
-  _nin?: InputMaybe<Array<Scalars["uuid"]["input"]>>;
+export type SelectTasksByUserIdQueryVariables = Exact<{
+  user_id: Scalars["String"]["input"];
+}>;
+
+export type SelectTasksByUserIdQuery = {
+  __typename?: "query_root";
+  tasks: Array<{
+    __typename?: "tasks";
+    id: number;
+    title: string;
+    status: string;
+    priority: string;
+  }>;
+};
+
+export type InsertTasksOneMutationVariables = Exact<{
+  title: Scalars["String"]["input"];
+  status: Scalars["String"]["input"];
+  priority: Scalars["String"]["input"];
+  user_id: Scalars["String"]["input"];
+}>;
+
+export type InsertTasksOneMutation = {
+  __typename?: "mutation_root";
+  insert_tasks_one?: { __typename?: "tasks"; id: number } | null;
+};
+
+export type DeleteTasksByPkMutationVariables = Exact<{
+  id: Scalars["Int"]["input"];
+}>;
+
+export type DeleteTasksByPkMutation = {
+  __typename?: "mutation_root";
+  delete_tasks_by_pk?: { __typename?: "tasks"; id: number } | null;
+};
+
+export type UpdateTasksByPkMutationVariables = Exact<{
+  id: Scalars["Int"]["input"];
+  title: Scalars["String"]["input"];
+  status: Scalars["String"]["input"];
+  priority: Scalars["String"]["input"];
+}>;
+
+export type UpdateTasksByPkMutation = {
+  __typename?: "mutation_root";
+  update_tasks_by_pk?: { __typename?: "tasks"; id: number } | null;
 };
 
 export type InsertUsersOneMutationVariables = Exact<{
@@ -850,6 +997,404 @@ export type SelectUsersByUsernameQuery = {
   users: Array<{ __typename?: "users"; id: string }>;
 };
 
+export const SelectTasksByUserIdDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "SelectTasksByUserId" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "user_id" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "String" },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "tasks" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "order_by" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "id" },
+                      value: { kind: "EnumValue", value: "desc" },
+                    },
+                  ],
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "where" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "user_id" },
+                      value: {
+                        kind: "ObjectValue",
+                        fields: [
+                          {
+                            kind: "ObjectField",
+                            name: { kind: "Name", value: "_eq" },
+                            value: {
+                              kind: "Variable",
+                              name: { kind: "Name", value: "user_id" },
+                            },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                { kind: "Field", name: { kind: "Name", value: "title" } },
+                { kind: "Field", name: { kind: "Name", value: "status" } },
+                { kind: "Field", name: { kind: "Name", value: "priority" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  SelectTasksByUserIdQuery,
+  SelectTasksByUserIdQueryVariables
+>;
+export const InsertTasksOneDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "InsertTasksOne" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "title" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "String" },
+            },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "status" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "String" },
+            },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "priority" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "String" },
+            },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "user_id" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "String" },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "insert_tasks_one" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "object" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "title" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "title" },
+                      },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "status" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "status" },
+                      },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "priority" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "priority" },
+                      },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "user_id" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "user_id" },
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  InsertTasksOneMutation,
+  InsertTasksOneMutationVariables
+>;
+export const DeleteTasksByPkDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "DeleteTasksByPk" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "Int" } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "delete_tasks_by_pk" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "id" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "id" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  DeleteTasksByPkMutation,
+  DeleteTasksByPkMutationVariables
+>;
+export const UpdateTasksByPkDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "UpdateTasksByPk" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "Int" } },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "title" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "String" },
+            },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "status" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "String" },
+            },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "priority" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "String" },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "update_tasks_by_pk" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "pk_columns" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "id" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "id" },
+                      },
+                    },
+                  ],
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "_set" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "title" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "title" },
+                      },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "status" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "status" },
+                      },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "priority" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "priority" },
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  UpdateTasksByPkMutation,
+  UpdateTasksByPkMutationVariables
+>;
 export const InsertUsersOneDocument = {
   kind: "Document",
   definitions: [
