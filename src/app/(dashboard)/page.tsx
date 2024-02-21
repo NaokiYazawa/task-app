@@ -24,7 +24,7 @@ export default async function TaskPage() {
   });
 
   return (
-    <div className="h-full">
+    <div className="h-full my-5">
       <DataTable data={tasks} columns={columns} session={session} />
     </div>
   );

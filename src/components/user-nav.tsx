@@ -16,7 +16,7 @@ import { Icons } from "./icons";
 export function UserNav() {
   const { data } = useSession();
   return (
-    <div className="flex items-center justify-between space-y-2 py-5">
+    <div className="flex items-center justify-between space-y-2 mt-5">
       <div className="flex items-center justify-between">
         <Icons.listTodo width={30} height={30} />
         <span className="ml-2 text-2xl font-bold">TaskApp</span>
