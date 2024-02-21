@@ -13,3 +13,10 @@ export const updateTaskFormValidator = z.object({
   status: z.string().min(1, { message: "ステータスを入力してください" }),
   priority: z.string().min(1, { message: "優先度を入力してください" }),
 });
+
+export const taskValidator = z.object({
+  id: z.number(),
+  title: z.string(),
+  status: z.string(),
+  priority: z.string(),
+});

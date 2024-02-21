@@ -20,11 +20,11 @@ import { UseFormReturn } from "react-hook-form";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import {
   ArrowDownIcon,
+  ArrowRightIcon,
   ArrowUpIcon,
   CheckCircledIcon,
   CircleIcon,
   CrossCircledIcon,
-  ArrowRightIcon,
   QuestionMarkCircledIcon,
   StopwatchIcon,
 } from "@radix-ui/react-icons";

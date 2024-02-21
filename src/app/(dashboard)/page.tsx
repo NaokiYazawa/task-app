@@ -2,8 +2,8 @@ import { Metadata } from "next";
 import { getAuthSession } from "@/lib/auth";
 import { getClient } from "@/lib/apollo-client";
 import { SelectTasksByUserIdDocument } from "@/graphql/generated/gql.types";
-import { AddTask } from "./_components/AddTask";
-import TaskList from "./_components/TaskList";
+import { columns } from "./components/columns";
+import { DataTable } from "./components/data-table";
 
 export const metadata: Metadata = {
   title: "Tasks",
@@ -24,11 +24,8 @@ export default async function TaskPage() {
   });
 
   return (
-    <>
-      <div className="h-full">
-        <AddTask session={session} />
-        <TaskList tasks={tasks} />
-      </div>
-    </>
+    <div className="h-full">
+      <DataTable data={tasks} columns={columns} session={session} />
+    </div>
   );
 }
