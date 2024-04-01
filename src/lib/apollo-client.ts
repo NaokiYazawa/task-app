@@ -1,10 +1,7 @@
 import { ApolloLink, createHttpLink } from "@apollo/client";
 import { registerApolloClient } from "@apollo/experimental-nextjs-app-support/rsc";
 import { onError } from "@apollo/client/link/error";
-import {
-  NextSSRApolloClient,
-  NextSSRInMemoryCache,
-} from "@apollo/experimental-nextjs-app-support/ssr";
+import { ApolloClient, InMemoryCache } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import { getAuthSession } from "@/lib/auth";
 
@@ -40,8 +37,8 @@ export const { getClient } = registerApolloClient(() => {
 
   const link = ApolloLink.from([authLink, errorLink, httpLink]);
 
-  return new NextSSRApolloClient({
-    cache: new NextSSRInMemoryCache(),
+  return new ApolloClient({
+    cache: new InMemoryCache(),
     link,
   });
 });
